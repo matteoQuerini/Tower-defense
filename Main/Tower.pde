@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Tower{
+class Tower {
     int x;
     int y;
     int danno;
@@ -8,25 +8,23 @@ public class Tower{
     float velocitaAttacco;
     ArrayList<Projectile> projectiles;
 
-    public Tower(int x, int y, int danno, int areaAttacco, int velocitaAttacco){
+    public Tower(int x, int y, int danno, int areaAttacco, float velocitaAttacco) {
         this.x = x;
         this.y = y;
         this.danno = danno;
         this.areaAttacco = areaAttacco;
         this.velocitaAttacco = velocitaAttacco;
-        projectiles = new ArrayList<projectiles>();
-
+        projectiles = new ArrayList<Projectile>();
     }
 
-    public void attacco(Enemy target){
-        if(target != null){
+    public void attacco(Enemy target) {
+        if (target != null) {
             projectiles.add(new Projectile(danno, target));
         }
     }
 
-    public void miglioramento(){
-        damage += 5;
-        range += 10;
+    public void miglioramento() {
+        danno += 5;
+        areaAttacco += 10;
     }
-
 }

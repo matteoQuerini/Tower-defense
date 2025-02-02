@@ -1,6 +1,7 @@
-public class Projectile{
+
+class Projectile {
     int danno;
-    final float velocita;
+    final float velocita = 10;
     Enemy bersaglio;
 
     public Projectile(int danno, Enemy bersaglio){
@@ -11,11 +12,10 @@ public class Projectile{
     public void movimento(){
 
     }
-    
-    public void obiettivoDaColpire() {
+
+    public void obiettivoDaColpire(){
         if (bersaglio != null) {
             bersaglio.subisciDanno(danno);
         }
     }
-
 }
