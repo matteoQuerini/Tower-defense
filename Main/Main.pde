@@ -1,85 +1,29 @@
-/*Tower tower;
-Enemy enemy;
-
-void setup() {
-  size(800, 600);
-  
-  // Crea la torre
-  tower = new Tower(400, 300, 20, 100, 2.0);
-  
-  // Crea un nemico
-  enemy = new Enemy(600, 300, 100, 1.0);
-}
-
-void draw() {
-  background(200);
-
-  // Mostra la torre
-  fill(255, 0, 0);
-  ellipse(tower.x, tower.y, 30, 30);  // Posizione della torre
-  
-  // Mostra il nemico
-  fill(0, 0, 255);
-  ellipse(enemy.x, enemy.y, 30, 30);  // Posizione del nemico
-  
-  // Il nemico si muove verso sinistra
-  enemy.x -= enemy.velocita;
-  
-  // La torre attacca quando il nemico entra nel suo range
-  if (dist(tower.x, tower.y, enemy.x, enemy.y) < tower.areaAttacco) {
-    tower.attacco(enemy);  // La torre spara al nemico
-  }
-  
-  // Mostra i proiettili e fai loro colpire il nemico
-  for (int i = 0; i < tower.projectiles.size(); i++) {
-    Projectile p = tower.projectiles.get(i);
-    
-    // Movimento del proiettile (semplificato)
-    p.bersaglio.x -= p.velocita;
-    
-    // Mostra il proiettile
-    fill(0, 255, 0);
-    ellipse(p.bersaglio.x, p.bersaglio.y, 10, 10);
-    
-    // Colpisce il nemico
-    p.obiettivoDaColpire();
-  }
-  
-  // Mostra la vita del nemico
-  fill(0);
-  text("Vita nemico: " + enemy.vita, 10, 20);
-  
-  // Se il nemico ha zero vita, fermalo
-  if (enemy.vita <= 0) {
-    enemy.velocita = 0;
-    text("Nemico distrutto!", 10, 40);
-  }
-}
-
-// Funzione che viene chiamata quando premi un tasto per migliorare la torre
-void keyPressed() {
-  tower.miglioramento();
-}
-*/
-
 ArrayList<Tower> torri = new ArrayList<Tower>();
 int counterTorriMax = 10;
-Matrix griglia = new Matrix(25, 15, 45);
+Matrix griglia = new Matrix(10, 15, 45);
+PImage sfondo;
+boolean[][] celleOccupate;
+int windowWidth = 1200;
+int windowHeight = 800;
 
 
 
 void settings() {
   //Crea la finestra con le dimensioni impostate(larghezza e altezza)
-  size(griglia.getColonne() * griglia.getDimensioneCella(), griglia.getRighe() * griglia.getDimensioneCella());
+  //size(griglia.getColonne() * griglia.getDimensioneCella(), griglia.getRighe() * griglia.getDimensioneCella());
+  size(windowWidth, windowHeight);
+
 }
 
 
 void setup() {
+  sfondo = loadImage("background.png");
+  celleOccupate = new boolean[griglia.getRighe()][griglia.getColonne()];
   griglia.disegnaGriglia();
 }
 
 void draw() {
-  background(255); 
+  image(sfondo, 0, 0, width, height);
   griglia.disegnaGriglia();
   
   for(Tower torre : torri){
@@ -91,14 +35,28 @@ void draw() {
 
 
 
-void mousePressed() {
-  if (torri.size() < counterTorriMax) {
-    int cellX = mouseX / griglia.getDimensioneCella();
-    int cellY = mouseY / griglia.getDimensioneCella();
-    int centerX = cellX * griglia.getDimensioneCella() + griglia.getDimensioneCella() / 2;
-    int centerY = cellY * griglia.getDimensioneCella() + griglia.getDimensioneCella() / 2;
+void mousePressed(){
+  
+  //Calcola la distanza dai margini della finestra alla griglia per centrarla
+  int offsetX = (width - griglia.getColonne() * griglia.getDimensioneCella()) / 2;
+  int offsetY = (height - griglia.getRighe() * griglia.getDimensioneCella()) / 2;
+  
+  //Calcola le posizioni della cella considerando fli offset 
+  int cellX = (mouseX - offsetX) / griglia.getDimensioneCella();
+  int cellY = (mouseY - offsetY) / griglia.getDimensioneCella();
+  
+  cellX = constrain(cellX, 0, griglia.getColonne() - 1);
+  cellY = constrain(cellY, 0, griglia.getRighe() - 1);
+  
+  if (celleOccupate[cellY][cellX] == false && torri.size() < counterTorriMax){
+    
+    //Calcolo il centro della cella
+    int centerX = griglia.getCellCenterX(cellX);
+    int centerY = griglia.getCellCenterY(cellY);
 
     torri.add(new Tower(centerX, centerY, 15, 100, 2.0));
+    celleOccupate[cellY][cellX] = true;
+    
   } else {
     println("Numero massimo di torri raggiunto!");
   }

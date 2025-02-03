@@ -41,7 +41,5 @@ class Tower {
       //Imposto il colore della torre
       fill(255, 0, 0);
       ellipse(getX(), getY(), 30, 30);
-      //reimposto il colore originale bianco
-      fill(255, 255, 255);
     }
 }
