@@ -63,26 +63,24 @@ void keyPressed() {
 */
 
 ArrayList<Tower> torri = new ArrayList<Tower>();
-
-int colonne = 25;
-int righe = 15;
-int dimensioneCella = 45;
+int counterTorriMax = 10;
+Matrix griglia = new Matrix(25, 15, 45);
 
 
 
 void settings() {
   //Crea la finestra con le dimensioni impostate(larghezza e altezza)
-  size(colonne * dimensioneCella, righe * dimensioneCella);
+  size(griglia.getColonne() * griglia.getDimensioneCella(), griglia.getRighe() * griglia.getDimensioneCella());
 }
 
 
 void setup() {
-  disegnaGriglia();
+  griglia.disegnaGriglia();
 }
 
 void draw() {
   background(255); 
-  disegnaGriglia();
+  griglia.disegnaGriglia();
   
   for(Tower torre : torri){
     if (torre != null){
@@ -93,24 +91,15 @@ void draw() {
 
 
 
-
-void disegnaGriglia() {
-  for (int i = 0; i < colonne; i++) {
-    for (int j = 0; j < righe; j++) {
-      //Calcola e disegna la cella
-      int x = i * dimensioneCella;
-      int y = j * dimensioneCella;
-      rect(x, y, dimensioneCella, dimensioneCella);
-    }
-  }
-}
-
-
 void mousePressed() {
-  int cellX = mouseX / dimensioneCella;
-  int cellY = mouseY / dimensioneCella;
-  int centerX = cellX * dimensioneCella + dimensioneCella / 2;
-  int centerY = cellY * dimensioneCella + dimensioneCella / 2;
-  
-  torri.add(new Tower(centerX, centerY, 15, 100, 2.0));
+  if (torri.size() < counterTorriMax) {
+    int cellX = mouseX / griglia.getDimensioneCella();
+    int cellY = mouseY / griglia.getDimensioneCella();
+    int centerX = cellX * griglia.getDimensioneCella() + griglia.getDimensioneCella() / 2;
+    int centerY = cellY * griglia.getDimensioneCella() + griglia.getDimensioneCella() / 2;
+
+    torri.add(new Tower(centerX, centerY, 15, 100, 2.0));
+  } else {
+    println("Numero massimo di torri raggiunto!");
+  }
 }
