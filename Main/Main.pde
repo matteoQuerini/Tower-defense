@@ -1,4 +1,4 @@
-Tower tower;
+/*Tower tower;
 Enemy enemy;
 
 void setup() {
@@ -59,4 +59,58 @@ void draw() {
 // Funzione che viene chiamata quando premi un tasto per migliorare la torre
 void keyPressed() {
   tower.miglioramento();
+}
+*/
+
+ArrayList<Tower> torri = new ArrayList<Tower>();
+
+int colonne = 25;
+int righe = 15;
+int dimensioneCella = 45;
+
+
+
+void settings() {
+  //Crea la finestra con le dimensioni impostate(larghezza e altezza)
+  size(colonne * dimensioneCella, righe * dimensioneCella);
+}
+
+
+void setup() {
+  disegnaGriglia();
+}
+
+void draw() {
+  background(255); 
+  disegnaGriglia();
+  
+  for(Tower torre : torri){
+    if (torre != null){
+      torre.mostraTorre();
+    }
+  }
+}
+
+
+
+
+void disegnaGriglia() {
+  for (int i = 0; i < colonne; i++) {
+    for (int j = 0; j < righe; j++) {
+      //Calcola e disegna la cella
+      int x = i * dimensioneCella;
+      int y = j * dimensioneCella;
+      rect(x, y, dimensioneCella, dimensioneCella);
+    }
+  }
+}
+
+
+void mousePressed() {
+  int cellX = mouseX / dimensioneCella;
+  int cellY = mouseY / dimensioneCella;
+  int centerX = cellX * dimensioneCella + dimensioneCella / 2;
+  int centerY = cellY * dimensioneCella + dimensioneCella / 2;
+  
+  torri.add(new Tower(centerX, centerY, 15, 100, 2.0));
 }

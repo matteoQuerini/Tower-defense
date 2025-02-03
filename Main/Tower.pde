@@ -16,6 +16,15 @@ class Tower {
         this.velocitaAttacco = velocitaAttacco;
         projectiles = new ArrayList<Projectile>();
     }
+    
+    public int getX(){
+      return this.x;
+    }
+    
+    
+    public int getY(){
+      return this.y;
+    }
 
     public void attacco(Enemy target) {
         if (target != null) {
@@ -26,5 +35,13 @@ class Tower {
     public void miglioramento() {
         danno += 5;
         areaAttacco += 10;
+    }
+    
+    public void mostraTorre(){
+      //Imposto il colore della torre
+      fill(255, 0, 0);
+      ellipse(getX(), getY(), 30, 30);
+      //reimposto il colore originale bianco
+      fill(255, 255, 255);
     }
 }
