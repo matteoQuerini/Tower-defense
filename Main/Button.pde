@@ -33,16 +33,19 @@ class Button{
         return larghezza;
     }
 
-    public void disegnaBottone(int x, int y, int altezza, int larghezza){
-        fill(251, 86, 7);
-        rect(x, y, altezza, larghezza);
+    public void disegnaBottone(){
         fill(0);
-        textAlign(CENTER, CENTER);
-        text(getTesto(), getX() + getLarghezza() / 2, getY() + getAltezza() / 2);
+        //l'ultimo parametro serve per smussare il rettangolo
+        rect(getX(), getY(), getLarghezza(), getAltezza(), 200);
+        
+        fill(255);
+        textSize(35);
+        text(getTesto(), getX() + getLarghezza() / 4, getY() + getAltezza() / 1.5);
+        
     }
 
 
     boolean isPressed() {
-        return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
+        return mouseX > getX() && mouseX < getX() + getLarghezza() && mouseY > getY() && mouseY < getY() + getAltezza();
     }
 }
