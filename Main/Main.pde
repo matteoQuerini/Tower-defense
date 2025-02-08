@@ -7,7 +7,7 @@ PImage sfondo;
 boolean[][] celleOccupate;
 int windowWidth = 1200;
 int windowHeight = 800;
-Button bottone;
+Menu menu;
 boolean giocoIniziato;
 
 //oggetto Minim per la gestione della musica e suoni
@@ -28,8 +28,7 @@ void setup(){
   
   sfondo = loadImage("backgroundStart.jpg");
   
-  //Centra il bottone in mezzo allo schermo
-  bottone = new Button((width - 200) / 2, (height - 80) / 2, "Start", 60, 150);
+  menu = new Menu();
   
   giocoIniziato = false;
   
@@ -61,7 +60,7 @@ void transizione(){
     
   } else {
     image(sfondo, 0, 0, width, height);
-    bottone.disegnaBottone();
+    menu.disegnaMenu();
     
   }
 }
@@ -71,7 +70,7 @@ void transizione(){
 void mousePressed(){
   
   //controllo anche se il gioco è iniziato alrtimenti posso prepere all'infinito il bottone anche se invisibile
-  if(!giocoIniziato && bottone.isPressed()){
+  if(!giocoIniziato && menu.bottoneStart.isPressed()){
   
     //Carica lo sfondo di gioco
     sfondo = loadImage("backgroundGame.png");
@@ -82,6 +81,8 @@ void mousePressed(){
     player.close(); //chiude il player corrente
     player = minim.loadFile("musicaGame.mp3");
     player.loop(); //avvia la nuova musica
+  } else if(menu.bottoneEsci.isPressed()){
+    exit();
   }
   
   if(giocoIniziato){
