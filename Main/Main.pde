@@ -50,6 +50,7 @@ void transizione(){
     //Imposta lo sfondo scelto
     image(sfondo, 0, 0, width, height);
     griglia.disegnaGriglia();
+    griglia.creaPercorso();
     
     
     for(Tower torre : torri){

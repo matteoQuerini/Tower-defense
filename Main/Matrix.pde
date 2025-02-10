@@ -44,6 +44,55 @@ class Matrix{
     }
   }
   
+  
+void creaPercorso(){
+  int startX = 0;
+  int startY = 0;
+  int finishX = 15;
+  int finishY = 10;
+  
+  
+  
+  
+    int offsetX = (width - (colonne * dimensioneCella)) / 2;
+    int offsetY = (height - (righe * dimensioneCella)) / 2;
+
+    for (int i = 0; i < colonne; i++){
+        for (int j = 0; j < righe; j++){
+            if (i == startX && j == startY){
+                fill(255, 0, 0);
+                
+            } else if (i == finishX && j == finishY){
+                fill(0, 0, 255);
+                
+            } else if (
+                (j == 0 && i <= colonne - 5) ||
+                (i == colonne - 4 && j <= 3) ||
+                (j == 3 && i >= colonne - 4) ||
+                (i == colonne - 1 && j >= 3 && j <= 6) ||
+                (j == 6 && i >= 4 && i <= colonne - 1) ||
+                (i == 4 && j >= 6 && j <= 10) ||
+                (j == 10 && i >= 4 && i <= 6) ||
+                (i == 6 && j >= 10 && j <= 14) ||
+                (j == 14 && i >= 6 && i <= 9) ||
+                (i == 9 && j >= 14 && j <= 18) ||
+                (j == 18 && i >= 9)){
+
+                fill(108, 108, 108);  //percorso
+                
+            } else {
+                fill(0);  //cella libera
+            }
+
+            int x = offsetX + i * dimensioneCella;
+            int y = offsetY + j * dimensioneCella;
+
+            rect(x, y, dimensioneCella, dimensioneCella);
+        }
+    }
+}
+    
+  
   public int getCellCenterX(int col) {
     int offsetX = (width - (colonne * dimensioneCella)) / 2;
     return offsetX + col * dimensioneCella + dimensioneCella / 2;
