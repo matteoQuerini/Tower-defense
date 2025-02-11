@@ -4,11 +4,10 @@ class Enemy{
     float vita;
     float velocita;
 
-    public Enemy(int x, int y, float vita, float velocita){
+    public Enemy(int x, int y, float vita){
         this.x = x;
         this.y = y;
         this.vita = vita;
-        this.velocita = velocita;
     }
 
     public void muovi(int destinazioneX, int destinazioneY){
@@ -23,7 +22,7 @@ class Enemy{
         }
     }
 
-    public void generaNemico(){
+    public void mostraNemico(){
         fill(0, 255, 0);
         ellipse(x, y, 30, 30);
     }
@@ -51,13 +50,5 @@ class Enemy{
 
     public void setVita(float vita){
         this.vita = vita;
-    }
-
-    public float getVelocita(){
-        return velocita;
-    }
-
-    public void setVelocita(float velocita){
-        this.velocita = velocita;
     }
 }

@@ -1,25 +1,38 @@
 import ddf.minim.*;
 
+
+
+
+
 ArrayList<Tower> torri = new ArrayList<Tower>();
+
 ArrayList<Enemy> nemici = new ArrayList<Enemy>();
+
 int counterTorriMax = 10;
+
 Matrix griglia = new Matrix(10, 15, 45);
+
 PImage sfondo;
+
 boolean[][] celleOccupate;
+
 int windowWidth = 1200;
+
 int windowHeight = 800;
+
 Menu menu;
+
 boolean giocoIniziato;
-Enemy n = new Enemy(300, 300, 10, 20);
 
 //oggetto Minim per la gestione della musica e suoni
 Minim minim;
+
 //oggetto AudioPlayer per caricare e riprodurre file audio
 AudioPlayer player;
 
 
 
-void settings() {
+void settings(){
   //Crea la finestra con le dimensioni impostate(larghezza e altezza)
   size(windowWidth, windowHeight);
 
@@ -38,7 +51,7 @@ void setup(){
   player.loop();
 }
 
-void draw() {
+void draw(){
   
    transizione();
   
@@ -51,14 +64,20 @@ void transizione(){
     image(sfondo, 0, 0, width, height);
     griglia.disegnaGriglia();
     griglia.creaPercorso();
-    
+    generaOndata(5);
     
     for(Tower torre : torri){
       if (torre != null){
         torre.mostraTorre();
       }
     }
-        
+
+    for(Enemy nemico : nemici){
+      if (nemico != null){
+        nemico.mostraNemico();
+      }
+    }
+
   } else {
     image(sfondo, 0, 0, width, height);
     menu.disegnaMenu();
@@ -86,6 +105,7 @@ void mousePressed(){
     
   } else if(menu.bottoneEsci.isPressed()){
     exit();
+    
   }
   
   if(giocoIniziato){
@@ -100,19 +120,33 @@ void mousePressed(){
     cellX = constrain(cellX, 0, griglia.getColonne() - 1);
     cellY = constrain(cellY, 0, griglia.getRighe() - 1);
     
-    if (celleOccupate[cellY][cellX] == false && torri.size() < counterTorriMax){
+    if(celleOccupate[cellY][cellX] == false && torri.size() < counterTorriMax){
       
       //Calcolo il centro della cella per assegnare la posizione alla torre
       int centerX = griglia.getCellCenterX(cellX);
       int centerY = griglia.getCellCenterY(cellY);
      
   
-      torri.add(new Tower(centerX, centerY, 15, 100, 2.0));
+      torri.add(new Tower(centerX, centerY, 15, 100));
       celleOccupate[cellY][cellX] = true;
       
     } else {
       println("Numero massimo di torri raggiunto!");
     }
+  }
+}
+
+
+public void generaOndata(int numeroNemici){
+    int cellaInizialeX = griglia.getCellCenterX(0);
+    int cellaInizialeY = griglia.getCellCenterY(0);
+    
+    
+    
+  for(int i = 0; i < numeroNemici; i++){
+    Enemy e = new Enemy(cellaInizialeX, cellaInizialeY, 20);
+    nemici.add(e);
+    
   }
 }
 

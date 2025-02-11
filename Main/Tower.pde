@@ -5,15 +5,13 @@ class Tower {
     int y;
     int danno;
     int areaAttacco;
-    float velocitaAttacco;
     ArrayList<Projectile> proiettili;
 
-    public Tower(int x, int y, int danno, int areaAttacco, float velocitaAttacco) {
+    public Tower(int x, int y, int danno, int areaAttacco){
         this.x = x;
         this.y = y;
         this.danno = danno;
         this.areaAttacco = areaAttacco;
-        this.velocitaAttacco = velocitaAttacco;
         proiettili = new ArrayList<Projectile>();
     }
     
@@ -30,11 +28,6 @@ class Tower {
         if (target != null) {
             proiettili.add(new Projectile(danno, target));
         }
-    }
-
-    public void miglioramento() {
-        danno += 5;
-        areaAttacco += 10;
     }
     
     public void mostraTorre(){
