@@ -10,7 +10,7 @@ ArrayList<Enemy> nemici = new ArrayList<Enemy>();
 
 int counterTorriMax = 10;
 
-Matrix griglia = new Matrix(10, 15, 45);
+Matrix griglia;
 
 PImage sfondo;
 
@@ -39,7 +39,10 @@ void settings(){
 }
 
 
+
+
 void setup(){
+  griglia  = new Matrix(10, 15, 45);
   
   sfondo = loadImage("backgroundStart.jpg");
   menu = new Menu();
@@ -51,6 +54,9 @@ void setup(){
   player.loop();
 }
 
+
+
+
 void draw(){
   
    transizione();
@@ -58,13 +64,23 @@ void draw(){
   
 }
 
+
+
+
+
+
+
+
+
+
+
 void transizione(){
   if(giocoIniziato){
     //Imposta lo sfondo scelto
     image(sfondo, 0, 0, width, height);
     griglia.disegnaGriglia();
     griglia.creaPercorso();
-    generaOndata(5);
+    generaOndata(1);
     
     for(Tower torre : torri){
       if (torre != null){
@@ -74,6 +90,7 @@ void transizione(){
 
     for(Enemy nemico : nemici){
       if (nemico != null){
+        nemico.muovi( );
         nemico.mostraNemico();
       }
     }
@@ -84,6 +101,9 @@ void transizione(){
     
   }
 }
+
+
+
 
 
 //Funsiore predefinita di processing che viene richiamata ogni volta che si preme il tasto del mouse
@@ -137,18 +157,20 @@ void mousePressed(){
 }
 
 
+
+
+
 public void generaOndata(int numeroNemici){
-    int cellaInizialeX = griglia.getCellCenterX(0);
-    int cellaInizialeY = griglia.getCellCenterY(0);
-    
-    
-    
-  for(int i = 0; i < numeroNemici; i++){
-    Enemy e = new Enemy(cellaInizialeX, cellaInizialeY, 20);
-    nemici.add(e);
-    
-  }
+    ArrayList<PVector> percorso = griglia.getPercorso();
+    for (int i = 0; i < numeroNemici; i++) {
+        Enemy e = new Enemy(percorso);
+        nemici.add(e);
+    }
 }
+
+
+
+
 
 void stop(){
   //ferma la musica corrente

@@ -4,6 +4,8 @@ class Matrix{
   int dimensioneCella;
   int offsetX;
   int offsetY;
+  //PVector è un vettore contiene delle coordinate, direzione e lunghezza(con pitagora)
+  ArrayList<PVector> puntiPercorso;
 
   public Matrix(int colonne, int righe, int dimensioneCella){
     this.colonne = colonne;
@@ -12,7 +14,28 @@ class Matrix{
     //Calcolo il centro della finestra
     this.offsetX = (width - (colonne * dimensioneCella)) / 2;
     this.offsetY = (height - (righe * dimensioneCella)) / 2;
+    
+    puntiPercorso = new ArrayList<PVector>();
+    generaPercorso();
   }
+  
+  private void generaPercorso(){
+    //aggiungo a mano i punti dei percorso
+     puntiPercorso.add(new PVector(0, 0));                    //start
+     puntiPercorso.add(new PVector(6, 0));                    //destra
+     puntiPercorso.add(new PVector(6, 3));                    //giu
+     puntiPercorso.add(new PVector(9, 3));                    //Destra
+     puntiPercorso.add(new PVector(9, 6));                    //giu
+     puntiPercorso.add(new PVector(4, 6));                    //sinistra
+     puntiPercorso.add(new PVector(4, 10));                   //giu
+     puntiPercorso.add(new PVector(6, 10));                   //destra
+     puntiPercorso.add(new PVector(6, 14));                   //giu
+     puntiPercorso.add(new PVector(9, 14));                   //destra
+     puntiPercorso.add(new PVector(9, this.righe - 1));            //fine
+    }
+  
+  
+  
 
   public int getColonne(){
     return colonne;
@@ -47,6 +70,26 @@ class Matrix{
       }
     }
   }
+  
+  
+  public ArrayList<PVector> getPercorso(){
+    
+        ArrayList<PVector> percorsoCentriCelle = new ArrayList<PVector>();
+        
+        //ciclo i vettori e calcolo i centri delle celle del percorso per poi far muoreve i nemici
+        for(PVector nuovoVettore : puntiPercorso){
+          
+            //nuovoVettore.x e .y contengono le coordinate della colonna e della riga della griglia non in pixel ma in numeri interi
+            //nel PVector i valori vengon memorizzati come dei float quindi faccio un cast
+            //poi con getCenterX e Y della classe matrix converte una coordinata x o y in valori pixel
+            int x = getCellCenterX((int)nuovoVettore.x);
+            int y = getCellCenterY((int)nuovoVettore.y);
+            percorsoCentriCelle.add(new PVector(x, y));
+        }
+        return percorsoCentriCelle;
+ }
+  
+  
   
   
 void creaPercorso(){
@@ -92,8 +135,10 @@ void creaPercorso(){
 
 
   //calcola la x di una specifica cella
-  public int getCellCenterX(int col) {
+  public int getCellCenterX(int col){
+    //calcola lo spazio vuoto ai lati sinistro e destro per centrare la griglia
     int offsetX = (width - (colonne * dimensioneCella)) / 2;
+    //calcola,la posizione x decentro della cella
     return offsetX + col * dimensioneCella + dimensioneCella / 2;
   }
   
