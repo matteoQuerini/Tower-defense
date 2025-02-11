@@ -2,11 +2,18 @@ class Matrix{
   int colonne;
   int righe;
   int dimensioneCella;
+  int offsetX;
+  int offsetY;
+  ArrayList<Enemy> nemici;
 
   public Matrix(int colonne, int righe, int dimensioneCella){
     this.colonne = colonne;
     this.righe = righe;
     this.dimensioneCella = dimensioneCella;
+    //Calcolo il centro della finestra
+    this.offsetX = (width - (colonne * dimensioneCella)) / 2;
+    this.offsetY = (height - (righe * dimensioneCella)) / 2;
+    nemici = new ArrayList<>();
   }
 
   public int getColonne(){
@@ -22,9 +29,8 @@ class Matrix{
   }
 
   void disegnaGriglia(){
-    //Calcolo il centro della finestra
-    int offsetX = (width - (colonne * dimensioneCella)) / 2;
-    int offsetY = (height - (righe * dimensioneCella)) / 2;
+    this.offsetX = (width - (colonne * dimensioneCella)) / 2;
+    this.offsetY = (height - (righe * dimensioneCella)) / 2;
     
     
     for (int i = 0; i < colonne; i++){
@@ -50,12 +56,6 @@ void creaPercorso(){
   int startY = 0;
   int finishX = 15;
   int finishY = 10;
-  
-  
-  
-  
-    int offsetX = (width - (colonne * dimensioneCella)) / 2;
-    int offsetY = (height - (righe * dimensioneCella)) / 2;
 
     for (int i = 0; i < colonne; i++){
         for (int j = 0; j < righe; j++){
@@ -91,6 +91,29 @@ void creaPercorso(){
         }
     }
 }
+
+
+public void generaOndata(int numeroNemici){
+  for (int i = 0; i < numeroNemici; i++) {
+        // Calcola le coordinate (x, y) per ogni nemico
+        int x = offsetX + i * 40; // Posiziona i nemici a 40 pixel di distanza l'uno dall'altro
+        int y = offsetY;
+
+        // Crea un nuovo nemico
+        Enemy e = new Enemy(x, y, 10, 2.5f); // Vita = 10, Velocità = 2.5
+
+        // Aggiungi il nemico alla lista
+        nemici.add(e);
+
+        // Disegna il nemico
+        e.generaNemico();
+        e.muovi(500, 500);
+    }
+}
+
+
+
+
     
   
   public int getCellCenterX(int col) {

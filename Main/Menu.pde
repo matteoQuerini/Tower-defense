@@ -13,13 +13,6 @@ class Menu{
   }
   
   
-   /*public void creaMenu(){
-     this.titolo = "Tower defense";
-     //Centra il bottone in mezzo allo schermo
-     bottoneStart = new Button((width - 1100) / 2, (height - 500) / 2, "Start", 60, 150);
-     bottoneEsci = new Button((width - 1100) / 2, (height - 350) / 2, "Esci", 60, 150);
-   }*/
-   
    public void disegnaMenu() {
     fill(99, 68, 48);
     rect(30, 90, 190, 220, 20);

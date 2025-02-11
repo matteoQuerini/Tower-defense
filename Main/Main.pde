@@ -1,6 +1,7 @@
 import ddf.minim.*;
 
 ArrayList<Tower> torri = new ArrayList<Tower>();
+ArrayList<Enemy> nemici = new ArrayList<Enemy>();
 int counterTorriMax = 10;
 Matrix griglia = new Matrix(10, 15, 45);
 PImage sfondo;
@@ -9,6 +10,7 @@ int windowWidth = 1200;
 int windowHeight = 800;
 Menu menu;
 boolean giocoIniziato;
+Enemy n = new Enemy(300, 300, 10, 20);
 
 //oggetto Minim per la gestione della musica e suoni
 Minim minim;
@@ -27,9 +29,7 @@ void settings() {
 void setup(){
   
   sfondo = loadImage("backgroundStart.jpg");
-  
   menu = new Menu();
-  
   giocoIniziato = false;
   
   //inizializza la libreria Minim per caricare e gestire la musica
@@ -58,7 +58,7 @@ void transizione(){
         torre.mostraTorre();
       }
     }
-    
+        
   } else {
     image(sfondo, 0, 0, width, height);
     menu.disegnaMenu();
@@ -82,6 +82,8 @@ void mousePressed(){
     player.close(); //chiude il player corrente
     player = minim.loadFile("musicaGame.mp3");
     player.loop(); //avvia la nuova musica
+    
+    
   } else if(menu.bottoneEsci.isPressed()){
     exit();
   }
