@@ -243,6 +243,11 @@ void muoviNemici(){
     for(Enemy nemico : nemici){
         nemico.muovi();
         nemico.mostraNemico();
+
+        if(nemico.haRaggiuntoFine()) {
+            nemici.remove(nemico);
+            break;
+        }
     }
 }
 

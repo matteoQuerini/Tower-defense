@@ -57,6 +57,11 @@ class Enemy{
             vita = 0;
         }
     }
+    
+    
+    public boolean haRaggiuntoFine(){
+       return posizioneCorrente >= percorso.size();
+    }
 
 
 
