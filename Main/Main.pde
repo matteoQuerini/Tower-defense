@@ -24,6 +24,16 @@ Menu menu;
 
 boolean giocoIniziato;
 
+boolean nemiciCreati = false;
+
+int counterNemiciCreati = 0;
+
+int spawnDelay = 30;
+
+int spawnTimer = 0;
+
+int nemiciTotali = 10;
+
 //oggetto Minim per la gestione della musica e suoni
 Minim minim;
 
@@ -75,28 +85,21 @@ void draw(){
 
 
 void transizione(){
+  
+  //controlla sia che il gioco sia iniziato e anche se il percorso sia stato creato in modo che non ricrea un altro pewrcorso
   if(giocoIniziato){
     assegnaPercorsoMatrice();
     //Imposta lo sfondo scelto
     image(sfondo, 0, 0, width, height);
     griglia.disegnaGriglia();
     griglia.creaPercorso();
-    generaOndata(1);
     
-    for(Tower torre : torri){
-      if (torre != null){
-        torre.mostraTorre();
-      }
-    }
+    gestioneTorri();
+    
 
-
-
-    for(Enemy nemico : nemici){
-      if (nemico != null){
-        nemico.muovi( );
-        nemico.mostraNemico();
-      }
-    }
+    gestioneNemici();
+    
+    
 
   } else {
     image(sfondo, 0, 0, width, height);
@@ -194,14 +197,52 @@ public void assegnaPercorsoMatrice(){
 
 
 
+public void gestioneTorri(){
+  for(Tower torre : torri){
+      if (torre != null){
+        torre.mostraTorre();
+      }
+    }
+}
 
 
-public void generaOndata(int numeroNemici){
-    ArrayList<PVector> percorso = griglia.getPercorso();
-    
-    for(int i = 0; i < numeroNemici; i++){
-        Enemy e = new Enemy(percorso);
+
+
+
+
+//controlla lla generazione, spawn e spostamento dei nemici per il percorso
+void gestioneNemici(){
+    gestisciSpawn();
+    muoviNemici();
+}
+
+
+
+
+
+void gestisciSpawn(){
+    spawnTimer++;
+    //questa funzione viene richiamate in gestione nemici che a sua volta viene richiamata nella funzione draw
+    //essendo che la funzione draw viene richiamata 60 volte al secondo la variabile spawnTimer incrementa ogni volta
+    //fino ad arrivare a 30 ed aggiunge un nuovo nemico
+    //non si puo usare un delay perche altrimenti i nemici verrebbero generati contemporaneamente e si muoverebbero a scatti
+    if(spawnTimer >= spawnDelay && nemiciTotali > 0){
+        Enemy e = new Enemy(griglia.getPercorso());
         nemici.add(e);
+        nemiciTotali--;
+        //dopo aver creato un nemico azzero lo spawnTimer per riaspettare altri 30 secondi
+        spawnTimer = 0;
+    }
+}
+
+
+
+
+
+void muoviNemici(){
+    for(Enemy nemico : nemici){
+        nemico.muovi();
+        nemico.mostraNemico();
     }
 }
 
