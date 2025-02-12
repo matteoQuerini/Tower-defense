@@ -34,6 +34,8 @@ int spawnTimer = 0;
 
 int nemiciTotali = 10;
 
+int vite = 3;
+
 //oggetto Minim per la gestione della musica e suoni
 Minim minim;
 
@@ -70,8 +72,10 @@ void setup(){
 void draw(){
   
    transizione();
-  
-  
+   
+   if(controlloPerdita()){
+       schermataGameOver();
+   }
 }
 
 
@@ -107,6 +111,19 @@ void transizione(){
     
   }
 }
+
+
+
+
+
+void schermataGameOver(){
+    player.close();
+    background(0);
+    textSize(70);
+    fill(255, 0, 0);
+    text("GAME OVER", width/2 - 190, height/2);
+}
+
 
 
 
@@ -246,9 +263,14 @@ void muoviNemici(){
 
         if(nemico.haRaggiuntoFine()) {
             nemici.remove(nemico);
+            vite--;
             break;
         }
     }
+}
+
+boolean controlloPerdita(){
+    return vite <= 0;
 }
 
 
