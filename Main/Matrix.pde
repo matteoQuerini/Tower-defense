@@ -31,10 +31,13 @@ class Matrix{
      puntiPercorso.add(new PVector(6, 10));                   //destra
      puntiPercorso.add(new PVector(6, 14));                   //giu
      puntiPercorso.add(new PVector(9, 14));                   //destra
-     puntiPercorso.add(new PVector(9, this.righe - 1));            //fine
+     puntiPercorso.add(new PVector(9, this.righe - 1));       //fine
     }
   
   
+  public ArrayList<PVector> getPuntiPercorso(){
+    return this.puntiPercorso;
+  }
   
 
   public int getColonne(){

@@ -76,6 +76,7 @@ void draw(){
 
 void transizione(){
   if(giocoIniziato){
+    assegnaPercorsoMatrice();
     //Imposta lo sfondo scelto
     image(sfondo, 0, 0, width, height);
     griglia.disegnaGriglia();
@@ -87,6 +88,8 @@ void transizione(){
         torre.mostraTorre();
       }
     }
+
+
 
     for(Enemy nemico : nemici){
       if (nemico != null){
@@ -159,10 +162,44 @@ void mousePressed(){
 
 
 
+public void assegnaPercorsoMatrice(){
+  int colonne = griglia.getColonne();
+  int righe = griglia.getRighe();
+  
+  for (int i = 0; i < colonne; i++){
+    for (int j = 0; j < righe; j++){
+      //uso le stesse condizini della funzione creaPercorso di matrix e  se sono reispettate assegno
+      //alla matrice che tiene traccia delle celle occupate il valore true per poi controllare dove
+      //posso posizionare le torri
+      
+      if((j == 0 && i <= colonne - 5) ||
+          (i == colonne - 4 && j <= 3) ||
+          (j == 3 && i >= colonne - 4) ||
+          (i == colonne - 1 && j >= 3 && j <= 6) ||
+          (j == 6 && i >= 4 && i <= colonne - 1) ||
+          (i == 4 && j >= 6 && j <= 10) ||
+          (j == 10 && i >= 4 && i <= 6) ||
+          (i == 6 && j >= 10 && j <= 14) ||
+          (j == 14 && i >= 6 && i <= 9) ||
+          (i == 9 && j >= 14 && j <= 18) ||
+          (j == 18 && i >= 9)){
+
+            
+        celleOccupate[j][i] = true;
+      }
+    }
+  }
+}
+
+
+
+
+
 
 public void generaOndata(int numeroNemici){
     ArrayList<PVector> percorso = griglia.getPercorso();
-    for (int i = 0; i < numeroNemici; i++) {
+    
+    for(int i = 0; i < numeroNemici; i++){
         Enemy e = new Enemy(percorso);
         nemici.add(e);
     }
