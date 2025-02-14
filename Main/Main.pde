@@ -261,11 +261,21 @@ void gestisciSpawn(){
     //fino ad arrivare a 30 ed aggiunge un nuovo nemico
     //non si puo usare un delay perche altrimenti i nemici verrebbero generati contemporaneamente e si muoverebbero a scatti
     if(spawnTimer >= spawnDelay && nemiciTotali > 0){
-        Enemy e = new Enemy(griglia.getPercorso());
-        nemici.add(e);
-        nemiciTotali--;
-        //dopo aver creato un nemico azzero lo spawnTimer per riaspettare altri 30 secondi
-        spawnTimer = 0;
+      Enemy e;
+      
+      
+      if(random(1) < 0.5){
+        e = new TankEnemy(griglia.getPercorso());
+      
+      } else {
+        e = new FastEnemy(griglia.getPercorso());
+      }
+
+
+      nemici.add(e);
+      nemiciTotali--;
+      //dopo aver creato un nemico azzero lo spawnTimer per riaspettare altri 30 secondi
+      spawnTimer = 0;
     }
 }
 
