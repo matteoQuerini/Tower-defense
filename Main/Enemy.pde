@@ -48,6 +48,11 @@ class Enemy{
 }
 
 
+public boolean eMorto(){
+  return getVita() <= 0;
+}
+
+
 
 
 

@@ -170,7 +170,7 @@ void mousePressed(){
       int centerY = griglia.getCellCenterY(cellY);
      
   
-      torri.add(new Tower(centerX, centerY, 15, 100));
+      torri.add(new Tower(centerX, centerY, 200));
       celleOccupate[cellY][cellX] = true;
       
     } else {
@@ -216,8 +216,25 @@ public void assegnaPercorsoMatrice(){
 
 public void gestioneTorri(){
   for(Tower torre : torri){
-      if (torre != null){
+      if(torre != null){
         torre.mostraTorre();
+        Enemy target = torre.trovaBersaglio(nemici);
+        
+        //se esisteb lo attacco
+        if(target != null){
+          torre.attacco(target);
+         }
+         
+         
+         for(int i = torre.proiettili.size() - 1; i >= 0; i--){
+                Projectile p = torre.proiettili.get(i);
+                p.movimento();
+                
+                if(p.daRimuovere){
+                    torre.proiettili.remove(i);
+                }
+        }
+        
       }
     }
 }
@@ -265,6 +282,9 @@ void muoviNemici(){
             nemici.remove(nemico);
             vite--;
             break;
+        } else if(nemico.eMorto()){
+          nemici.remove(nemico);
+          break;
         }
     }
 }
