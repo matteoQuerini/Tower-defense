@@ -7,7 +7,8 @@ class Tower {
     ArrayList<Projectile> proiettili;
     
     //limite di proiettili per torre
-    final int MAX_PROIETTILI = 20;
+    final int MAX_PROIETTILI = 15;
+    final int DANNO_PROIETTILE = 15;
 
     public Tower(int x, int y, int areaAttacco){
         this.x = x;
@@ -41,13 +42,23 @@ class Tower {
     public void attacco(Enemy target){
       
         if(target != null && proiettili.size() < this.MAX_PROIETTILI){
-            proiettili.add(new Projectile(target, this.x, this.y, 30));
+            proiettili.add(new Projectile(target, this.x, this.y, DANNO_PROIETTILE));
         }
     }
     
     public void mostraTorre(){
-      //Imposto il colore della torre e la disegno
-      fill(255, 0, 0);
-      ellipse(getX(), getY(), 30, 30);
+
+        //disegna l'area d'attacco della torre con un opacita del 20%
+        //disegna una circonferenza senza riempirla
+        noFill();
+        //disegna il bordo della circonbferenza
+        stroke(255, 0, 0, 50);
+        //disegna la circonferenza (moltiplico per due per avere il diametro)
+        ellipse(x, y, areaAttacco * 2, areaAttacco * 2);
+        
+        //disegna la torre
+        fill(255, 0, 0);
+        noStroke();
+        ellipse(x, y, 30, 30);
     }
 }

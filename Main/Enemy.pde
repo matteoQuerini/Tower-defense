@@ -1,4 +1,4 @@
-class Enemy{
+abstract class Enemy{
     int x;
     int y;
     float vita;
@@ -7,7 +7,7 @@ class Enemy{
     int posizioneCorrente;
 
     public Enemy(ArrayList<PVector> percorso){
-        this.vita = 25;
+        this.vita = 30;
         this.velocita = 3f;
         this.posizioneCorrente = 0;
         this.percorso = new ArrayList<PVector>(percorso);

@@ -32,9 +32,11 @@ int spawnDelay = 30;
 
 int spawnTimer = 0;
 
-int nemiciTotali = 10;
+int nemiciTotali = 30;
 
 int vite = 3;
+
+final int AREA_ATTACCO_TORRI = 70;
 
 //oggetto Minim per la gestione della musica e suoni
 Minim minim;
@@ -170,7 +172,7 @@ void mousePressed(){
       int centerY = griglia.getCellCenterY(cellY);
      
   
-      torri.add(new Tower(centerX, centerY, 200));
+      torri.add(new Tower(centerX, centerY, AREA_ATTACCO_TORRI));
       celleOccupate[cellY][cellX] = true;
       
     } else {

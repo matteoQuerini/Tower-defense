@@ -3,8 +3,8 @@ class FastEnemy extends Enemy{
   public FastEnemy(ArrayList<PVector> percorso) {
         super(percorso);
         //meno vota piu veloce
-        this.vita = 15;
-        this.velocita = 5f;
+        this.vita = 400;
+        this.velocita = 6f;
     }
 
 
@@ -12,7 +12,7 @@ class FastEnemy extends Enemy{
     @Override
     public void subisciDanno(float danno){
       //meno resistente hai danni
-      super.subisciDanno(danno * 0.8f);
+      super.subisciDanno(danno * 1.2f);
     }
 
 
