@@ -38,6 +38,7 @@ final int AREA_ATTACCO_TORRI = 70;
 Minim minim;
 //oggetto AudioPlayer per caricare e riprodurre file audio
 AudioPlayer player;
+boolean musicaGameOverOn = false;
 
 
 
@@ -71,6 +72,12 @@ void draw(){
    transizione();
    
    if(controlloPerdita()){
+       if(!musicaGameOverOn) { // Aggiungi questo controllo
+           player.close();
+           player = minim.loadFile("musicaGameOver.mp3");
+           player.loop();
+           musicaGameOverOn = true;
+       }
        schermataGameOver();
    }
 }
@@ -116,11 +123,10 @@ void transizione(){
 
 
 void schermataGameOver(){
-    player.close();
     background(0);
-    textSize(70);
-    fill(255, 0, 0);
-    text("GAME OVER", width/2 - 190, height/2);
+    sfondo = loadImage("backgroundGameOver.jpg");
+    image(sfondo, 0, 0, width, height);
+    menu.bottoneEsci.disegnaBottone();
 }
 
 
@@ -149,6 +155,7 @@ void mousePressed(){
     exit();
     
   }
+
   
   if(giocoIniziato){
     //Calcola la distanza dai margini della finestra alla griglia per centrarla
@@ -301,19 +308,4 @@ void muoviNemici(){
 
 boolean controlloPerdita(){
     return vite <= 0;
-}
-
-
-
-
-
-void stop(){
-  //ferma la musica corrente
-  player.close();
-  
-  //ferma l'oggetto miunim
-  minim.stop();
-  
-  //ferma il programma chiamando il metodo stop della classe base di processing
-  super.stop();
 }
