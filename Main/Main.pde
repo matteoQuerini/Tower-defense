@@ -1,46 +1,41 @@
+//libreria per gestire l'audio
 import ddf.minim.*;
 
 
 
 
 
+//ArrayList dei nemici e torri ed numaro massimo di torri posizionabuli
 ArrayList<Tower> torri = new ArrayList<Tower>();
-
 ArrayList<Enemy> nemici = new ArrayList<Enemy>();
-
 int counterTorriMax = 10;
 
+//gliglia visiva e logica e immagine di sfondo
 Matrix griglia;
-
+boolean[][] celleOccupate;
 PImage sfondo;
 
-boolean[][] celleOccupate;
-
+//dimensione finestra
 int windowWidth = 1200;
-
 int windowHeight = 800;
 
+//gestione menu e diversi stati dei gioco
 Menu menu;
-
 boolean giocoIniziato;
-
 boolean nemiciCreati = false;
-
 int counterNemiciCreati = 0;
 
+//gestione della generazione dei nemici 
 int spawnDelay = 30;
-
 int spawnTimer = 0;
-
 int nemiciTotali = 30;
 
 int vite = 3;
-
 final int AREA_ATTACCO_TORRI = 70;
 
+//gestione audio
 //oggetto Minim per la gestione della musica e suoni
 Minim minim;
-
 //oggetto AudioPlayer per caricare e riprodurre file audio
 AudioPlayer player;
 
@@ -94,6 +89,7 @@ void transizione(){
   
   //controlla sia che il gioco sia iniziato e anche se il percorso sia stato creato in modo che non ricrea un altro pewrcorso
   if(giocoIniziato){
+  //fase di gioco
     assegnaPercorsoMatrice();
     //Imposta lo sfondo scelto
     image(sfondo, 0, 0, width, height);
@@ -108,6 +104,7 @@ void transizione(){
     
 
   } else {
+  //fase di menu
     image(sfondo, 0, 0, width, height);
     menu.disegnaMenu();
     
@@ -294,6 +291,7 @@ void muoviNemici(){
             nemici.remove(nemico);
             vite--;
             break;
+            
         } else if(nemico.eMorto()){
           nemici.remove(nemico);
           break;

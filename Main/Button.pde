@@ -46,6 +46,6 @@ class Button{
 
 
     boolean isPressed() {
-        return mouseX > getX() && mouseX < getX() + getLarghezza() && mouseY > getY() && mouseY < getY() + getAltezza();
+        return (((mouseX > getX()) && (mouseX < getX() + getLarghezza()) && (mouseY > getY()) && (mouseY < getY() + getAltezza()));
     }
 }

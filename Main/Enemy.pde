@@ -3,6 +3,11 @@ abstract class Enemy{
     int y;
     float vita;
     float velocita;
+    /*
+    PVector è una classe di processin che rappresenta un vettore o 2D o 3D
+    in questo caso viene usato come un array dove in ogni posizione contiene 
+    sia le ocordinate x e y
+    */
     ArrayList<PVector> percorso;
     int posizioneCorrente;
 
@@ -11,7 +16,10 @@ abstract class Enemy{
         this.velocita = 3f;
         this.posizioneCorrente = 0;
         this.percorso = new ArrayList<PVector>(percorso);
-        //prendo in primo punto del percorso calcolo le coordinate x e y e le assegno alle coordinate del nemico
+        /*
+        prendo in primo punto del percorso, calcolo le coordinate x e y e le assegno alle coordinate del nemico
+        facendo un cast perche le coordinate nel PVector sono di tipo float
+        */
         PVector start = this.percorso.get(0);
         this.x = (int)start.x;
         this.y = (int)start.y;
@@ -58,13 +66,17 @@ public boolean eMorto(){
 
     public void subisciDanno(float danno){
         vita -= danno;
-        if (vita < 0) {
+        if(vita < 0){
             vita = 0;
         }
     }
     
     
     public boolean haRaggiuntoFine(){
+        /*
+        controlla se la posizione del nemico(che viene incrementata nella funzione movimento) sia maggiore
+        o uguale della dimensione totale del percorso
+        */
        return posizioneCorrente >= percorso.size();
     }
 
