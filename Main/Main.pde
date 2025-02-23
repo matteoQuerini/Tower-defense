@@ -72,12 +72,6 @@ void draw(){
    transizione();
    
    if(controlloPerdita()){
-       if(!musicaGameOverOn) {
-           player.close();
-           player = minim.loadFile("musicaGameOver.mp3");
-           player.loop();
-           musicaGameOverOn = true;
-       }
        schermataGameOver();
    }
 }
