@@ -114,3 +114,8 @@ L'obiettivo di questo progetto è quello di sviluppare un software che permetta 
 ## Conclusione
 
 Il progetto ha raggiunto gli obiettivi iniziali, offrendo un'esperienza bilanciata e coinvolgente. L'uso di OOP e la separazione tra logica e grafica hanno semplificato l'implementazione e future espansioni. Nonostante le difficoltà tecniche, il gioco garantisce un equilibrio tra difficoltà e divertimento, arricchito da effetti audio immersivi.
+
+---
+
+## Diagramma UML
+![Diagramma UML](./UML/TowerDefence1.2.jpg)
