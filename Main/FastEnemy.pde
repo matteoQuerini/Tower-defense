@@ -4,7 +4,7 @@ class FastEnemy extends Enemy{
         super(percorso);
         //meno vota piu veloce
         this.vita = 400;
-        this.velocita = 6f;
+        this.velocita = 7f;
     }
 
 

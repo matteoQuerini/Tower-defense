@@ -28,7 +28,7 @@ int counterNemiciCreati = 0;
 //gestione della generazione dei nemici 
 int spawnDelay = 30;
 int spawnTimer = 0;
-int nemiciTotali = 30;
+int nemiciTotali = 200;
 
 int vite = 3;
 final int AREA_ATTACCO_TORRI = 70;

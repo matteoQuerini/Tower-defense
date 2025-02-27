@@ -3,7 +3,7 @@ class TankEnemy extends Enemy{
   public TankEnemy(ArrayList<PVector> percorso){
         super(percorso);
         //piu vita meno veloce
-        this.vita = 3000;
+        this.vita = 3500;
         this.velocita = 3f;
     }
 
